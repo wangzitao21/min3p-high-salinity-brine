@@ -1,0 +1,435 @@
+! ------------------------------------------------------------
+
+! Data Block 1: global control parameters
+
+'global control parameters'
+'My example'
+
+.true.                    ;varsat_flow
+.false.                   ;steady_flow
+.true.                    ;fully_saturated
+.true.                    ;reactive_transport
+
+'density dependent flow'
+
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 2: geochemical system
+
+'geochemical system'
+
+'use pitzer model'
+'use macinnes convention'
+
+'use new database format'
+
+'database directory'
+'./database'
+
+'components'
+8
+'h+1'
+'cl-1'
+'k+1'
+'na+1'
+'ca+2'
+'mg+2'
+'so4-2'
+'co3-2'
+
+'secondary aqueous species'
+19
+'khso4(aq)'
+'h2so4(aq)'
+'oh-'
+'mgoh+'
+'mgco3aq'
+'mghco3+'
+'mgso4aq'
+'caoh+'
+'cahco3+'
+'caco3aq'
+'caso4aq'
+'cahso4+'
+'naco3-'
+'nahco3aq'
+'naso4-'
+'kso4-'
+'hco3-'
+'h2co3aq'
+'hso4-'
+
+'minerals'
+6
+'halite'
+'gypsum'
+'calcite'
+'carnallite'
+'polyhalite'
+'sylvite'
+
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 3: spatial discretization
+
+'spatial discretization'
+
+! X
+1
+
+160
+0.0  400.0
+
+! Y
+1
+
+1
+0.0  1.0
+
+! Z
+1
+
+40
+0.0  60.0
+
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 4: time step control - global system
+
+'time step control - global system'
+'years'                   ;time unit
+0.0                       ;time at start
+5.0                       ;final time
+0.1                       ;max. time step
+1e-12                     ;min. time step
+
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 5: control parameters - local geochemistry
+
+'control parameters - local geochemistry'
+
+'newton iteration settings'
+1.d-4                         ;factor for numerical differentiation
+1.d-6                         ;convergence tolerance
+
+'maximum ionic strength'
+15.0d0                         ;max. ionic strength
+
+'minimum activity for h2o'
+0.5d0                         ;min. activity for h2o
+
+'output time unit'
+'days'                        ;time unit (local chemistry)
+
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 6: control parameters - variably saturated flow
+
+'control parameters - variably saturated flow'
+
+'mass balance'
+
+'variable density parameters'
+1.0d3         ;ref_dens
+0.7d0         ;linear density coefficient
+20            ;maxit_sia
+8             ;iter_target
+0.01          ;maximum density update
+1.0           ;courant
+
+'compute underrelaxation factor'
+100.0          ;Maximum update
+
+!'input units for media permeability'
+!'permeability'
+
+'input units for boundary and initial conditions'
+'hydraulic head'              ;input unit
+
+'newton iteration settings'
+1.d-2                         ;increment h for numerical differentiation
+12                            ;max. number of Newton iterations
+1.d-5                         ;convergence tolerance
+0.1                           ;anticipated saturation change
+
+'solver settings'
+0                             ;level_vs, incomplete factorization level
+500                           ;msolvit_vs, max. number of solver iterations
+0                             ;idetail_vs, solver information level
+1.0d-7                        ;restol_vs, solver residual tolerance
+1.0d-7                        ;deltol_vs, solver update tolerance
+
+'enable divergence check'
+
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 7: control parameters - reactive transport
+
+'control parameters - reactive transport'
+
+'mass balance'
+
+'spatial weighting'
+'upstream'
+!'van leer'
+
+'activity update settings'
+'time_lagged'                 ;type of activity update
+
+'update porosity'
+'harmonic average in porosity'  
+
+'update permeability'
+
+'tortuosity correction'
+'millington'
+
+'newton iteration settings'
+1.d-4                 	  	  ;increment h for numerical differentiation
+12                    		  ;anticipated number of Newton iterations
+40                    		  ;max. number of Newton iterations
+0.5d0                 		  ;anticipated update in log cycles
+1.0d0                		  ;maximum update in log cycles
+1.d-6                 		  ;convergence tolerance (global system)
+
+'solver settings'
+2                             ;incomplete factorization level
+200                           ;max. number of solver iterations
+1                             ;information level
+1.d-8                         ;solver residual tolerance
+1.d-8                         ;solver update tolerance
+
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 8: Output Control
+
+'output control'
+
+'output of spatial data'
+4
+1.0   2.0   3.0   4.0   5.0
+
+'output of transient data'
+0
+1
+
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 9: Physical Parameters - Porous Medium
+
+'physical parameters - porous medium'
+1
+
+'number and name of zone'
+1
+'myaquifer'
+0.30               ;porosity
+0.50               ;yuhuidu
+'extent of zone'
+0.0 400.0   0.0 1.0   0.0 60.0   ;X范围, Y范围, Z范围
+'end of zone'
+
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 10: Physical Parameters - Variably-Saturated Flow
+
+'physical parameters - variably saturated flow'
+
+'myaquifer'
+
+'read hydraulic conductivity field from file'
+
+!'hydraulic conductivity in x-direction'
+!1.1574d-4
+!'hydraulic conductivity in z-direction'
+!6.9444d-5
+
+!'permeability in x-direction'
+!1.18d-11
+!'permeability in z-direction'
+!7.08d-12
+
+'specific storage coefficient'
+1.0d-5
+
+'end of zone'
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 11: physical parameters - reactive transport
+
+'physical parameters - reactive transport'
+
+'diffusion coefficients'
+0.0d0                         ;free diffusion coefficient in water
+0.0d0			      	      ;free diffusion coefficient in air
+
+'myaquifer'
+
+'longitudinal dispersivity'
+1.0d0                        ;longitudinal dispersivity
+
+'transverse vertical dispersivity'
+0.1d0
+
+'end of zone'
+
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 12: Initial Condition
+
+'initial condition - variably saturated flow'
+1
+
+!'read initial condition from file'
+
+'number and name of zone'
+1
+
+'initial_head_all'
+
+'initial condition'
+60.0
+
+'extent of zone'
+0.0 400.0   0.0 1.0   0.0 60.0
+'end of zone'
+
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 13: boundary conditions - variably saturated flow
+
+'boundary conditions - variably saturated flow'
+2
+
+'number and name of zone'
+1
+
+'top_left_CHD'
+
+'boundary type'
+'first'  60.0    ;hydraulic head
+ 
+'extent of zone'
+0.0 7.5     0.0 1.0    60.0 60.0
+'end of zone'
+
+'number and name of zone'
+2
+
+'right_pumping'
+
+'boundary type'
+'second'  -9.259d-5
+'extent of zone'
+400.0 400.0  0.0 1.0   0.0 4.5
+'end of zone'
+
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 15: initial condition - reactive transport
+
+'initial condition - reactive transport'
+1
+
+'number and name of zone'
+1
+'initial_chemistry_all'
+
+'concentration input'
+6.818060    'ph'        'h+1'
+1.334653    'charge'    'cl-1'
+0.444199    'free'      'k+1'
+0.687030    'free'      'na+1'
+0.011049    'free'      'ca+2'
+0.237958    'free'      'mg+2'
+0.051852    'free'      'so4-2'
+0.000088    'free'      'co3-2'
+
+'mineral input'
+0.211      .false.     'twothird'    'halite'
+1.0d-10    1.5d-8      0.0
+0.0140      .false.    'twothird'    'gypsum'
+1.0d-10    1.5d-9      0.0
+0.12       .false.     'twothird'    'calcite'
+1.0d-10    1.0d-9      0.0 
+0.140      .false.     'twothird'    'carnallite'
+1.0d-10    1.5d-8      0.0
+0.0212     .false.     'twothird'    'polyhalite'
+1.0d-10    1.5d-9      0.0
+0.0350     .false.     'twothird'    'sylvite'
+1.0d-10    1.5d-8      0.0
+
+'extent of zone'
+0.0 400.0   0.0 1.0   0.0 60.0
+
+'end of zone'
+'done'
+
+! ------------------------------------------------------------
+
+! Data Block 16: boundary conditions - reactive transport
+
+'boundary conditions - reactive transport'
+2
+
+'number and name of zone'
+1
+
+'top_left_CHD'
+
+'boundary type'
+'first'
+
+'concentration input'
+7.314977    'ph'        'h+1'
+4.189443    'charge'    'cl-1'
+0.000041    'free'      'k+1'
+4.328907    'free'      'na+1'
+0.000031    'free'      'ca+2'
+0.000515    'free'      'mg+2'
+0.070299    'free'      'so4-2'
+0.000088    'free'      'co3-2'
+
+'extent of zone'
+0.0 7.5     0.0 1.0    60.0 60.0
+'end of zone'
+
+'number and name of zone'
+2
+'right_pumping'
+
+'boundary type'
+'second'
+
+'extent of zone'
+400.0 400.0  0.0 1.0   0.0 4.5
+'end of zone'
+
+'done'
